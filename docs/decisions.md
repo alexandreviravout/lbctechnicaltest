@@ -22,14 +22,22 @@ It addresses that every app runs into as it grows.
 I choose to use Michael Bull Kotlin Result, because it handles result with value and error.
 
 ### Analytics
-I decided to move AnalyticsHelper from :app to :core:analytics in order to be able to use it
-in several modules.
+I decided to move AnalyticsHelper from :app to :core:analytics in order to be able to track events
+or actions in view model. I make it Singleton, because it is initialized in activity (:app)
+and use in view model (:feature:albums:iu).
 
 ### Compose navigation
 I choose to use compose navigation for navigation of the feature Alums. This feature
-contains albums list and album details. I remove DetailsActivity, keep the tracking
-moved in view model.
+contains albums list and album details. With compose navigation, each view model is stored in its
+destination back stack entry, which is kept across activity recreation.
 
 ### Unit tests
 For unit tests, I used Mockito with JUnit4 for the simplicity. Usually, I work with
 Mockito with JUnit5.
+
+### Configuration changes
+Compose navigation keep the view model across activity recreation.
+Load albums on init instead of LaunchedEffect(Unit) avoid to load new albums on each
+activity recreation.
+The scroll position is keep.
+

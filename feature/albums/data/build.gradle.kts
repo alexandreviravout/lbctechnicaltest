@@ -29,6 +29,7 @@ kotlin {
 }
 
 dependencies {
+    implementation(project(":core:network"))
     implementation(project(":feature:albums:domain"))
 
     // Coroutines

@@ -47,7 +47,6 @@ kotlin {
 }
 
 dependencies {
-    implementation(project(":core:network"))
     implementation(project(":core:analytics"))
     implementation(project(":feature:albums:data"))
     implementation(project(":feature:albums:domain"))
