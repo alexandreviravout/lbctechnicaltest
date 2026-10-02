@@ -2,9 +2,10 @@ package fr.leboncoin.androidrecruitmenttestapp
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.github.michaelbull.result.mapBoth
 import dagger.hilt.android.lifecycle.HiltViewModel
-import fr.leboncoin.data.network.model.AlbumDto
-import fr.leboncoin.data.repository.AlbumRepository
+import fr.leboncoin.androidrecruitmenttestapp.domain.model.Album
+import fr.leboncoin.androidrecruitmenttestapp.domain.repository.AlbumRepository
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -18,14 +19,19 @@ class AlbumsViewModel @Inject constructor(
     private val repository: AlbumRepository,
 ) : ViewModel() {
 
-    private val _albums = MutableSharedFlow<List<AlbumDto>>()
-    val albums: SharedFlow<List<AlbumDto>> = _albums
+    private val _albums = MutableSharedFlow<List<Album>>()
+    val albums: SharedFlow<List<Album>> = _albums
 
     fun loadAlbums() {
         GlobalScope.launch {
-            try {
-                _albums.emit(repository.getAllAlbums())
-            } catch (_: Exception) { /* TODO: Handle errors */ }
+            repository.getAlbums().mapBoth(
+                success = {
+                    _albums.emit(value = it)
+                },
+                failure = {
+                    // TODO: Handle errors
+                }
+            )
         }
     }
 

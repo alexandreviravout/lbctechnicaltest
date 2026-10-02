@@ -12,11 +12,11 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.adevinta.spark.components.scaffold.Scaffold
 import fr.leboncoin.androidrecruitmenttestapp.AlbumsViewModel
-import fr.leboncoin.data.network.model.AlbumDto
+import fr.leboncoin.androidrecruitmenttestapp.domain.model.Album
 
 @Composable
 fun AlbumsScreen(
-    onItemSelected : (AlbumDto) -> Unit,
+    onItemSelected : (Album) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: AlbumsViewModel = hiltViewModel()
 ) {

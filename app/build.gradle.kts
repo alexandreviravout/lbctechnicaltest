@@ -48,7 +48,6 @@ kotlin {
 
 dependencies {
     implementation(project(":core:network"))
-    implementation(project(":data"))
     implementation(project(":feature:albums:data"))
     implementation(project(":feature:albums:domain"))
 
@@ -77,4 +76,9 @@ dependencies {
     debugImplementation(libs.leakcanary.android)
 
     implementation(libs.hilt.navigation.compose) // move this line to ui part for Compose (hiltViewModel())
+
+    // Add it temporarily
+    // Kotlin Result
+    implementation(libs.kotlin.result)
+    implementation(libs.kotlin.result.coroutines)
 }

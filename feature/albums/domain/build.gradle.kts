@@ -18,4 +18,7 @@ kotlin {
 dependencies {
     // Kotlin Result
     implementation(libs.kotlin.result)
+
+    implementation(libs.javax.inject)
+    implementation(libs.kotlinx.coroutines.core)
 }
