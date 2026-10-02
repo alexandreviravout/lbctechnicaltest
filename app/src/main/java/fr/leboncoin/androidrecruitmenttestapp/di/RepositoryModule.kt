@@ -18,6 +18,5 @@ import javax.inject.Singleton
 abstract class RepositoryModule {
 
     @Binds
-    @Singleton
     abstract fun bindAlbumRepository(impl: AlbumDataRepository): AlbumRepository
 }

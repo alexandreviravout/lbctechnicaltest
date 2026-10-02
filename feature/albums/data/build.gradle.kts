@@ -49,6 +49,11 @@ dependencies {
     implementation(libs.okhttp.logging)
     implementation(libs.kotlin.serialization.json)
 
+    // Room
+    implementation(libs.room.ktx)
+    implementation(libs.room.runtime)
+    ksp(libs.room.compiler)
+
     // Test
     testImplementation(libs.junit)
     testImplementation(libs.kotlinx.coroutines.test)

@@ -23,8 +23,9 @@ I choose to use Michael Bull Kotlin Result, because it handles result with value
 
 ### Analytics
 I decided to move AnalyticsHelper from :app to :core:analytics in order to be able to track events
-or actions in view model. I make it Singleton, because it is initialized in activity (:app)
-and use in view model (:feature:albums:iu).
+or actions in view model. I make it Singleton in order to have only one instance. Hilt will handle
+the initialization and give the application context. Like that, we can remove the strong reference
+to the MainActivity.
 
 ### Compose navigation
 I choose to use compose navigation for navigation of the feature Alums. This feature
@@ -41,3 +42,9 @@ Load albums on init instead of LaunchedEffect(Unit) avoid to load new albums on 
 activity recreation.
 The scroll position is keep.
 
+### Offline mode
+Offline mode with Room. Room is the single source of truth.
+The albums list always tries the API first, replaces the stored albums in a transaction,
+and falls back on the database if the call fails, so the app keeps working offline
+once albums have been loaded at least once. Album details are read from the database,
+which also survives process death. The in-memory cache was removed since Room replaces it.

@@ -5,9 +5,11 @@ import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.andThen
 import com.github.michaelbull.result.coroutines.runSuspendCatching
-import com.github.michaelbull.result.onOk
+import com.github.michaelbull.result.get
+import com.github.michaelbull.result.orElse
 import fr.leboncoin.androidrecruitmenttestapp.feature.albums.data.api.AlbumRemoteDataSource
-import fr.leboncoin.androidrecruitmenttestapp.feature.albums.data.api.mapper.AlbumMapper
+import fr.leboncoin.androidrecruitmenttestapp.feature.albums.data.local.AlbumLocalDataSource
+import fr.leboncoin.androidrecruitmenttestapp.feature.albums.data.mapper.AlbumMapper
 import fr.leboncoin.androidrecruitmenttestapp.feature.albums.domain.model.Album
 import fr.leboncoin.androidrecruitmenttestapp.feature.albums.domain.repository.AlbumRepository
 import javax.inject.Inject
@@ -15,6 +17,7 @@ import javax.inject.Singleton
 
 /**
  * This class defines album data repository.
+ *
  * Dto objects are mapped to result of domain objects or error.
  * There is a cache to avoid to call remote api service too often.
  *
@@ -22,31 +25,53 @@ import javax.inject.Singleton
  */
 @Singleton
 class AlbumDataRepository @Inject constructor(
-    private val dataSource: AlbumRemoteDataSource,
-//    private val localDataSource: AlbumLocalDataSource, // TODO: Use the database
+    private val remoteDataSource: AlbumRemoteDataSource,
+    private val localDataSource: AlbumLocalDataSource,
     private val mapper: AlbumMapper,
 ) : AlbumRepository {
 
-    private var cachedAlbums: List<Album>? = null
-
     override suspend fun getAlbums(forceRefresh: Boolean): Result<List<Album>, Throwable> {
-        val cached = cachedAlbums
-        if (cached != null && !forceRefresh) {
-            return Ok(value = cached)
+        if (!forceRefresh) {
+            val localResult = getCachedAlbums()
+            val cached = localResult.get()
+            if (!cached.isNullOrEmpty()) return localResult
         }
 
-        return runSuspendCatching {
-            dataSource.getAlbums().map {
-                mapper.mapToDomain(dto = it)
-            }
-        }.onOk { cachedAlbums = it }
+        return refreshAlbums().orElse { remoteError ->
+            // Offline mode: fall back on stored albums if we have any
+            val localResult = getCachedAlbums()
+            val cached = localResult.get()
+            if (!cached.isNullOrEmpty()) localResult else Err(error = remoteError)
+        }
     }
 
     override suspend fun getAlbumDetails(id: Int): Result<Album, Throwable> =
-        getAlbums()
-            .andThen { albums ->
-                albums.firstOrNull { it.id == id }
-                    ?.let { Ok(value = it) }
-                    ?: Err(error = NoSuchElementException("Album $id not found"))
-            }
+        runSuspendCatching {
+            localDataSource.getAlbum(id = id)
+        }.andThen { entity ->
+            entity?.let {
+                Ok(value = mapper.mapToDomain(entity = it))
+            } ?: Err(error = NoSuchElementException("Album $id not found"))
+        }
+
+    private suspend fun refreshAlbums(): Result<List<Album>, Throwable> = runSuspendCatching {
+        val dtos = remoteDataSource.getAlbums()
+        // An empty remote list must not wipe the stored albums: treat it as a failure
+        if (dtos.isEmpty()) throw NoSuchElementException("No albums available")
+
+        val entities = dtos.map {
+            mapper.mapToEntity(dto = it)
+        }
+        localDataSource.saveAlbums(albums = entities)
+
+        entities.map {
+            mapper.mapToDomain(entity = it)
+        }
+    }
+
+    private suspend fun getCachedAlbums(): Result<List<Album>, Throwable> = runSuspendCatching {
+        localDataSource.getAlbums().map {
+            mapper.mapToDomain(entity = it)
+        }
+    }
 }

@@ -33,3 +33,21 @@
 ### Commit 8
 - Add unit tests on :feature:albums modules (data, domain and ui)
 Create :core:unittest module in order to work with dispatcher for unit tests
+
+### Commit 9
+- Add docs folder with documentation
+
+### Commit 10
+- Update Analytics helper to be Singleton
+
+### Commit 11
+- Fix all modules packages
+
+### Commit 12
+- Add architecture documentation
+
+### Commit 13
+- Fix Analytics memory leak and update its initialization
+
+### Commit 14
+- Add offline mode with Room
