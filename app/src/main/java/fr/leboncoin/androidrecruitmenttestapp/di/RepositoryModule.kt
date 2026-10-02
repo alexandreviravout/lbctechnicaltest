@@ -4,8 +4,8 @@ import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import fr.leboncoin.androidrecruitmenttestapp.data.repository.AlbumDataRepository
-import fr.leboncoin.androidrecruitmenttestapp.domain.repository.AlbumRepository
+import fr.leboncoin.androidrecruitmenttestapp.feature.albums.data.repository.AlbumDataRepository
+import fr.leboncoin.androidrecruitmenttestapp.feature.albums.domain.repository.AlbumRepository
 import javax.inject.Singleton
 
 /**

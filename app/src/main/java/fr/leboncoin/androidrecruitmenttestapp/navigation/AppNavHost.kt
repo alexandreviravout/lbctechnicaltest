@@ -6,10 +6,10 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import fr.leboncoin.androidrecruitmenttestapp.ui.albumdetails.AlbumDetailsScreen
-import fr.leboncoin.androidrecruitmenttestapp.ui.albums.AlbumsScreen
-import fr.leboncoin.androidrecruitmenttestapp.ui.navigation.AlbumDetails
-import fr.leboncoin.androidrecruitmenttestapp.ui.navigation.AlbumList
+import fr.leboncoin.androidrecruitmenttestapp.feature.albums.ui.albumdetails.AlbumDetailsScreen
+import fr.leboncoin.androidrecruitmenttestapp.feature.albums.ui.albums.AlbumsScreen
+import fr.leboncoin.androidrecruitmenttestapp.feature.albums.ui.navigation.AlbumDetails
+import fr.leboncoin.androidrecruitmenttestapp.feature.albums.ui.navigation.AlbumList
 
 /**
  * This composable defines the navigation host.
