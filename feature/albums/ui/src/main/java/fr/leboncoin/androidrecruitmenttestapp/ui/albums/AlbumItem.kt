@@ -1,4 +1,4 @@
-package fr.leboncoin.androidrecruitmenttestapp.ui
+package fr.leboncoin.androidrecruitmenttestapp.ui.albums
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -26,13 +26,13 @@ import com.adevinta.spark.ExperimentalSparkApi
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.components.card.Card
 import com.adevinta.spark.components.chips.ChipTinted
-import fr.leboncoin.androidrecruitmenttestapp.domain.model.Album
+import fr.leboncoin.androidrecruitmenttestapp.ui.AlbumViewState
 
 @OptIn(ExperimentalSparkApi::class)
 @Composable
 fun AlbumItem(
-    album: Album,
-    onItemSelected: (Album) -> Unit,
+    album: AlbumViewState,
+    onItemSelected: (Int) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Card(
@@ -40,7 +40,7 @@ fun AlbumItem(
             .fillMaxWidth()
             .height(120.dp)
             .padding(horizontal = 16.dp),
-        onClick = { onItemSelected(album) },
+        onClick = { onItemSelected(album.id) },
     ) {
         Row {
             AsyncImage(
@@ -78,12 +78,8 @@ fun AlbumItem(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
-                    ChipTinted(
-                        text = "Album #${album.albumId}"
-                    )
-                    ChipTinted(
-                        text = "Track #${album.id}"
-                    )
+                    ChipTinted(text = "Album #${album.albumId}")
+                    ChipTinted(text = "Track #${album.id}")
                 }
             }
         }

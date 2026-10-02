@@ -51,10 +51,15 @@ dependencies {
     implementation(project(":core:analytics"))
     implementation(project(":feature:albums:data"))
     implementation(project(":feature:albums:domain"))
+    implementation(project(":feature:albums:ui"))
 
     // Hilt
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
+
+    // Navigation
+    implementation(libs.hilt.navigation.compose)
+    implementation(libs.androidx.navigation.compose)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -75,11 +80,4 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
     debugImplementation(libs.leakcanary.android)
-
-    implementation(libs.hilt.navigation.compose) // move this line to ui part for Compose (hiltViewModel())
-
-    // Add it temporarily
-    // Kotlin Result
-    implementation(libs.kotlin.result)
-    implementation(libs.kotlin.result.coroutines)
 }
