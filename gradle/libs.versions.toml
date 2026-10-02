@@ -17,9 +17,11 @@ kotlinSerializationConverter = "1.0.0"
 ksp = "2.2.10-2.0.2"
 leakcanary = "2.14"
 lifecycle = "2.9.0"
+mockitoKotlin = "5.4.0"
 navigationCompose = "2.9.0"
 okhttp = "5.1.0"
 retrofit = "3.0.0"
+robolectric = "4.14.1"
 spark = "1.4.0"
 
 [libraries]
@@ -43,6 +45,7 @@ androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-man
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 javax-inject = { group = "javax.inject", name = "javax.inject", version = "1" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
+robolectric = { group = "org.robolectric", name = "robolectric", version.ref = "robolectric" }
 
 # Coil
 coil-compose = { group = "io.coil-kt.coil3", name = "coil-compose", version.ref = "coil" }
@@ -65,6 +68,9 @@ kotlin-result-coroutines = { group = "com.michael-bull.kotlin-result", name = "k
 
 # Kotlin Serialization
 kotlin-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinSerialization" }
+
+# Mockito
+mockito-kotlin = { group = "org.mockito.kotlin", name = "mockito-kotlin", version.ref = "mockitoKotlin" }
 
 # Retrofit
 retrofit-core = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }

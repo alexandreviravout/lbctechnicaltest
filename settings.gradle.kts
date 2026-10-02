@@ -23,6 +23,7 @@ rootProject.name = "Android RecruitmentTest App"
 include(":app")
 include(":core:analytics")
 include(":core:network")
+include(":core:unittest")
 include(":feature:albums:data")
 include(":feature:albums:domain")
 include(":feature:albums:ui")

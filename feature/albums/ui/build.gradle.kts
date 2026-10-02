@@ -38,6 +38,8 @@ dependencies {
     implementation(project(":core:analytics"))
     implementation(project(":feature:albums:domain"))
 
+    testImplementation(project(":core:unittest"))
+
     // Coil
     implementation(libs.coil.compose)
     implementation(libs.coil.network.okhttp)
@@ -66,4 +68,11 @@ dependencies {
     // Spark
     implementation(platform(libs.spark.bom))
     implementation(libs.spark)
+
+    // Test
+    testImplementation(libs.androidx.navigation.testing)
+    testImplementation(libs.junit)
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.mockito.kotlin)
+    testImplementation(libs.robolectric)
 }
