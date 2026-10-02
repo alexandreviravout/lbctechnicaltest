@@ -10,7 +10,7 @@ import androidx.compose.ui.res.painterResource
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.components.image.Illustration
 import dagger.hilt.android.AndroidEntryPoint
-import fr.leboncoin.androidrecruitmenttestapp.utils.AnalyticsHelper
+import fr.leboncoin.androidrecruitmenttestapp.analytics.AnalyticsHelper
 import javax.inject.Inject
 
 @AndroidEntryPoint

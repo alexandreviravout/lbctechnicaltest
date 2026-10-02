@@ -1,4 +1,4 @@
-package fr.leboncoin.androidrecruitmenttestapp.utils
+package fr.leboncoin.androidrecruitmenttestapp.analytics
 
 import android.content.Context
 import androidx.core.content.edit
