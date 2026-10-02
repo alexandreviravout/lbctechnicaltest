@@ -1,10 +1,14 @@
 package fr.leboncoin.data.repository
 
 import fr.leboncoin.data.network.api.AlbumApiService
+import retrofit2.Retrofit
+import javax.inject.Inject
 
-class AlbumRepository(
-    private val albumApiService: AlbumApiService,
+class AlbumRepository @Inject constructor(
+    private val retrofit: Retrofit,
 ) {
-    
-    suspend fun getAllAlbums() = albumApiService.getAlbums()
+
+    private val service by lazy { retrofit.create(AlbumApiService::class.java) }
+
+    suspend fun getAllAlbums() = service.getAlbums()
 }

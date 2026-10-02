@@ -2,8 +2,9 @@ package fr.leboncoin.androidrecruitmenttestapp.utils
 
 import android.content.Context
 import androidx.core.content.edit
+import javax.inject.Inject
 
-class AnalyticsHelper {
+class AnalyticsHelper @Inject constructor() {
 
     private var context: Context? = null
 

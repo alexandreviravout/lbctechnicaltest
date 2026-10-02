@@ -8,6 +8,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.adevinta.spark.components.scaffold.Scaffold
 import fr.leboncoin.androidrecruitmenttestapp.AlbumsViewModel
@@ -15,9 +16,9 @@ import fr.leboncoin.data.network.model.AlbumDto
 
 @Composable
 fun AlbumsScreen(
-    viewModel: AlbumsViewModel,
     onItemSelected : (AlbumDto) -> Unit,
     modifier: Modifier = Modifier,
+    viewModel: AlbumsViewModel = hiltViewModel()
 ) {
     val albums by viewModel.albums.collectAsStateWithLifecycle(emptyList())
 
