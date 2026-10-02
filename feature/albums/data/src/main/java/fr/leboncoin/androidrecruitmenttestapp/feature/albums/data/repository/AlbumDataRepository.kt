@@ -7,7 +7,8 @@ import com.github.michaelbull.result.andThen
 import com.github.michaelbull.result.coroutines.runSuspendCatching
 import com.github.michaelbull.result.onOk
 import fr.leboncoin.androidrecruitmenttestapp.feature.albums.data.api.AlbumRemoteDataSource
-import fr.leboncoin.androidrecruitmenttestapp.feature.albums.data.api.mapper.AlbumMapper
+import fr.leboncoin.androidrecruitmenttestapp.feature.albums.data.local.AlbumLocalDataSource
+import fr.leboncoin.androidrecruitmenttestapp.feature.albums.data.mapper.AlbumMapper
 import fr.leboncoin.androidrecruitmenttestapp.feature.albums.domain.model.Album
 import fr.leboncoin.androidrecruitmenttestapp.feature.albums.domain.repository.AlbumRepository
 import javax.inject.Inject
@@ -21,6 +22,7 @@ import javax.inject.Inject
  */
 class AlbumDataRepository @Inject constructor(
     private val dataSource: AlbumRemoteDataSource,
+    private val localDataSource: AlbumLocalDataSource, // TODO: Use the database
     private val mapper: AlbumMapper,
 ) : AlbumRepository {
 

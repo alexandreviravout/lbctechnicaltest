@@ -22,6 +22,7 @@ navigationCompose = "2.9.0"
 okhttp = "5.1.0"
 retrofit = "3.0.0"
 robolectric = "4.14.1"
+room = "2.8.5"
 spark = "1.4.0"
 
 [libraries]
@@ -76,6 +77,12 @@ mockito-kotlin = { group = "org.mockito.kotlin", name = "mockito-kotlin", versio
 retrofit-core = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
 retrofit-kotlin-serialization = { group = "com.jakewharton.retrofit", name = "retrofit2-kotlinx-serialization-converter", version.ref = "kotlinSerializationConverter" }
 okhttp-logging = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttp" }
+
+# Room
+room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
+room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
+room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
+room-testing = { group = "androidx.room", name = "room-testing", version.ref = "room" }
 
 # Spark
 spark-bom = { module = "com.adevinta.spark:spark-bom", version.ref = "spark" }

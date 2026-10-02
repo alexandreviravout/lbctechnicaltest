@@ -5,7 +5,7 @@ import com.github.michaelbull.result.get
 import com.github.michaelbull.result.getError
 import fr.leboncoin.androidrecruitmenttestapp.feature.albums.data.api.AlbumRemoteDataSource
 import fr.leboncoin.androidrecruitmenttestapp.feature.albums.data.api.dto.AlbumDto
-import fr.leboncoin.androidrecruitmenttestapp.feature.albums.data.api.mapper.AlbumMapper
+import fr.leboncoin.androidrecruitmenttestapp.feature.albums.data.mapper.AlbumMapper
 import fr.leboncoin.androidrecruitmenttestapp.feature.albums.domain.model.Album
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert

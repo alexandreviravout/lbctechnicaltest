@@ -1,7 +1,7 @@
 package fr.leboncoin.androidrecruitmenttestapp.feature.albums.data.api.mapper
 
 import fr.leboncoin.androidrecruitmenttestapp.feature.albums.data.api.dto.AlbumDto
-import fr.leboncoin.androidrecruitmenttestapp.feature.albums.data.api.mapper.AlbumMapper
+import fr.leboncoin.androidrecruitmenttestapp.feature.albums.data.mapper.AlbumMapper
 import org.junit.Assert
 import org.junit.Test
 
