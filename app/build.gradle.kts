@@ -49,6 +49,8 @@ kotlin {
 dependencies {
     implementation(project(":core:network"))
     implementation(project(":data"))
+    implementation(project(":feature:albums:data"))
+    implementation(project(":feature:albums:domain"))
 
     // Hilt
     implementation(libs.hilt.android)
