@@ -5,7 +5,7 @@ import retrofit2.Retrofit
 import javax.inject.Inject
 
 /**
- * This class defines album remote data source.
+ * This class defines remote data source of albums list.
  * It allows us to convert api service data to dto.
  *
  * @author alexandre.viravout

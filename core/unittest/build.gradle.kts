@@ -7,12 +7,11 @@ plugins {
 
 android {
     namespace = "fr.leboncoin.androidrecruitmenttestapp.core.unittest"
-    compileSdk = 36 // with build-logic we can remove this line
+    compileSdk = 36
 
     defaultConfig {
         minSdk = 24
     }
-    buildFeatures { buildConfig = true }
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
