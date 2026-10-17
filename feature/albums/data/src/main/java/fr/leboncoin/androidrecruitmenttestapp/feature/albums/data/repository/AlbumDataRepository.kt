@@ -11,6 +11,7 @@ import fr.leboncoin.androidrecruitmenttestapp.feature.albums.data.api.mapper.Alb
 import fr.leboncoin.androidrecruitmenttestapp.feature.albums.domain.model.Album
 import fr.leboncoin.androidrecruitmenttestapp.feature.albums.domain.repository.AlbumRepository
 import javax.inject.Inject
+import javax.inject.Singleton
 
 /**
  * This class defines album data repository.
@@ -19,8 +20,10 @@ import javax.inject.Inject
  *
  * @author alexandre.viravout
  */
+@Singleton
 class AlbumDataRepository @Inject constructor(
     private val dataSource: AlbumRemoteDataSource,
+//    private val localDataSource: AlbumLocalDataSource, // TODO: Use the database
     private val mapper: AlbumMapper,
 ) : AlbumRepository {
 

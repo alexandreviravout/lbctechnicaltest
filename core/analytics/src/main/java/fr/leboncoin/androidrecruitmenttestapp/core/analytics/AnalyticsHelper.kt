@@ -2,33 +2,28 @@ package fr.leboncoin.androidrecruitmenttestapp.core.analytics
 
 import android.content.Context
 import androidx.core.content.edit
+import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class AnalyticsHelper @Inject constructor() {
+class AnalyticsHelper @Inject constructor(
+    @param:ApplicationContext private val context: Context,
+) {
 
-    private var context: Context? = null
-
-    fun initialize(context: Context) {
-        this.context = context
+    private val prefs by lazy {
+        context.getSharedPreferences(ANALYTICS_SHARED_PREFS, Context.MODE_PRIVATE)
     }
 
     fun trackSelection(itemId: String) {
-        context?.let { activity ->
-            val prefs = activity.getSharedPreferences(ANALYTICS_SHARED_PREFS, Context.MODE_PRIVATE)
-            prefs.edit { putString(SELECTED_ITEM_KEY, itemId) }
-
-            // Simulate some analytics logging
-            println("Analytics: User selected item - $itemId")
-        }
+        prefs.edit { putString(SELECTED_ITEM_KEY, itemId) }
+        // Simulate some analytics logging
+        println("Analytics: User selected item - $itemId")
     }
 
     fun trackScreenView(screenName: String) {
-        context?.let {
-            // Simulate some analytics logging
-            println("Analytics: Screen viewed - $screenName")
-        }
+        // Simulate some analytics logging
+        println("Analytics: Screen viewed - $screenName")
     }
 }
 
