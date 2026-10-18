@@ -105,6 +105,7 @@ class AlbumDetailsViewModelTest {
 
         // THEN
         verify(analyticsHelper, times(1)).trackScreenView(screenName = "Details")
+        verify(analyticsHelper, times(1)).trackSelection(itemId = ALBUM_ID.toString())
     }
 
     @Test

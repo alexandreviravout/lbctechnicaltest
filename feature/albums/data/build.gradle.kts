@@ -9,7 +9,7 @@ plugins {
 }
 
 android {
-    namespace = "fr.leboncoin.androidrecruitmenttestapp.feature.homepage.data"
+    namespace = "fr.leboncoin.androidrecruitmenttestapp.feature.albums.data"
     compileSdk = 36
 
     defaultConfig {

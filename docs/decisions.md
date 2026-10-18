@@ -50,4 +50,25 @@ once albums have been loaded at least once. Album details are read from the data
 which also survives process death. The in-memory cache was removed since Room replaces it.
 
 ### Favorite feature
-Favorites are stored in their own table, so refreshing albums never removes them.
+Favorites are stored in their own Room table (`favorites`), not as a column of the albums table.
+Refreshing albums replaces all album rows (`replaceAll`), which would erase a column. There is no
+foreign key either, because `ON DELETE CASCADE` would delete favorites with the albums.
+`FavoriteDao.toggle` runs in a transaction, so a fast double tap cannot leave an inconsistent state.
+
+Both screens must show the same favorite state. With Compose navigation, the albums list
+ViewModel stays alive in the back stack while the details screen is open, so a one-shot read
+would show an outdated heart when going back.
+
+To solve it, favorite ids are observed as a `Flow` from Room, which emits a new set each time
+the table changes. Each ViewModel keeps its loaded albums in a private `loadState` and merges it
+with favorite ids using `combine`, then exposes the result with
+`stateIn(WhileSubscribed(5_000))`:
+- a toggle only writes to the database; Room emits, `combine` recomputes the ui state,
+  and every screen observing favorites is updated, without any link between screens,
+- albums are not reloaded when a favorite changes, only the `isFavorite` flags are recomputed,
+  and the `LazyColumn` keys limit recomposition to the changed row,
+- the 5 seconds timeout keeps the flow active during a configuration change.
+
+Albums themselves are still loaded once (`suspend`), because favorites are the only data that
+changes while a screen is displayed. Observing albums from Room too would be the next step
+toward a fully reactive offline-first architecture.

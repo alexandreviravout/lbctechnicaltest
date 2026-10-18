@@ -6,7 +6,8 @@ import kotlinx.coroutines.flow.Flow
 
 /**
  * This interface defines album repository.
- * Its allows to get albums in Result object type.
+ * It allows to get albums and album details, and to manage favorite albums.
+ * Albums are returned in Result object type: a value on success, or the error that occurred.
  *
  * @author alexandre.viravout
  */

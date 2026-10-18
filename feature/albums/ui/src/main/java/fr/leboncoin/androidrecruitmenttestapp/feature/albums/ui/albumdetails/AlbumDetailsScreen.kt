@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil3.compose.AsyncImage
+import com.adevinta.spark.ExperimentalSparkApi
 import com.adevinta.spark.components.buttons.ButtonFilled
 import com.adevinta.spark.components.iconbuttons.toggle.IconToggleButtonGhost
 import com.adevinta.spark.components.iconbuttons.toggle.IconToggleButtonIcons
@@ -97,6 +98,7 @@ internal fun AlbumDetailsErrorView(
     }
 }
 
+@OptIn(ExperimentalSparkApi::class)
 @Composable
 internal fun AlbumDetailsView(
     album: AlbumViewState,

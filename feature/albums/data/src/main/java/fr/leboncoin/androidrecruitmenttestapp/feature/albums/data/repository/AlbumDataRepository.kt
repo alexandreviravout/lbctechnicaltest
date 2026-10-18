@@ -20,8 +20,13 @@ import javax.inject.Singleton
 /**
  * This class defines album data repository.
  *
- * Dto objects are mapped to result of domain objects or error.
- * There is a cache to avoid to call remote api service too often.
+ * The database is the single source of truth:
+ *  - albums are loaded from the remote api service, stored in database, then returned,
+ *  - when the remote call fails or returns no album, stored albums are returned (offline mode),
+ *  - an error is returned only when neither the remote nor the database has albums,
+ *  - album details are read from database, so they are available offline and after process death.
+ *
+ *  Favorites are stored in their own table, so refreshing albums never removes them.
  *
  * @author alexandre.viravout
  */

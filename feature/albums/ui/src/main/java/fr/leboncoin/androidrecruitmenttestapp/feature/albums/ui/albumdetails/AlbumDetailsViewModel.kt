@@ -58,6 +58,7 @@ class AlbumDetailsViewModel @Inject constructor(
 
     init {
         analyticsHelper.trackScreenView(screenName = "Details")
+        analyticsHelper.trackSelection(itemId = albumId.toString())
 
         viewModelScope.launch {
             getAlbumDetailsUseCase(id = albumId).mapBoth(

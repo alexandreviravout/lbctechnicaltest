@@ -12,7 +12,7 @@ import fr.leboncoin.androidrecruitmenttestapp.feature.albums.data.local.entity.F
 /**
  * This class defines the albums database.
  *
- * @author alexanre.viravout
+ * @author alexandre.viravout
  */
 @Database(
     entities = [AlbumEntity::class, FavoriteEntity::class],

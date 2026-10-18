@@ -10,7 +10,7 @@ plugins {
 }
 
 android {
-    namespace = "fr.leboncoin.androidrecruitmenttestapp.feature.homepage.ui"
+    namespace = "fr.leboncoin.androidrecruitmenttestapp.feature.albums.ui"
     compileSdk = 36
 
     defaultConfig {
