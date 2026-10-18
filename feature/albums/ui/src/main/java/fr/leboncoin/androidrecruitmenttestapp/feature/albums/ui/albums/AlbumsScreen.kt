@@ -33,6 +33,7 @@ fun AlbumsScreen(
         is AlbumsUiState.Success -> AlbumsListView(
             albums = state.albums,
             onItemSelected = onItemSelected,
+            onFavoriteClick = viewModel::onFavoriteClick,
             modifier = modifier,
         )
 
@@ -83,6 +84,7 @@ internal fun AlbumsErrorView(
 internal fun AlbumsListView(
     albums: List<AlbumViewState>,
     onItemSelected: (Int) -> Unit,
+    onFavoriteClick: (Int) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Scaffold(modifier = modifier) {
@@ -97,6 +99,7 @@ internal fun AlbumsListView(
                 AlbumItem(
                     album = album,
                     onItemSelected = onItemSelected,
+                    onFavoriteClick = onFavoriteClick,
                 )
             }
         }

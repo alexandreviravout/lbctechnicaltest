@@ -26,6 +26,11 @@ import com.adevinta.spark.ExperimentalSparkApi
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.components.card.Card
 import com.adevinta.spark.components.chips.ChipTinted
+import com.adevinta.spark.components.iconbuttons.toggle.IconToggleButtonGhost
+import com.adevinta.spark.components.iconbuttons.toggle.IconToggleButtonIcons
+import com.adevinta.spark.icons.FavoriteFill
+import com.adevinta.spark.icons.FavoriteOutline
+import com.adevinta.spark.icons.SparkIcons
 import fr.leboncoin.androidrecruitmenttestapp.feature.albums.ui.AlbumViewState
 
 @OptIn(ExperimentalSparkApi::class)
@@ -33,6 +38,7 @@ import fr.leboncoin.androidrecruitmenttestapp.feature.albums.ui.AlbumViewState
 fun AlbumItem(
     album: AlbumViewState,
     onItemSelected: (Int) -> Unit,
+    onFavoriteClick: (Int) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Card(
@@ -75,11 +81,28 @@ fun AlbumItem(
                 Spacer(Modifier.weight(1f))
 
                 Row(
+                    modifier = Modifier.fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     ChipTinted(text = "Album #${album.albumId}")
                     ChipTinted(text = "Track #${album.id}")
+
+                    Spacer(modifier = Modifier.weight(1f))
+
+                    IconToggleButtonGhost(
+                        checked = album.isFavorite,
+                        onCheckedChange = { onFavoriteClick(album.id) },
+                        icons = IconToggleButtonIcons(
+                            checked = SparkIcons.FavoriteFill,
+                            unchecked = SparkIcons.FavoriteOutline,
+                        ),
+                        contentDescription = if (album.isFavorite) {
+                            "Remove from favorites"
+                        } else {
+                            "Add to favorites"
+                        },
+                    )
                 }
             }
         }
