@@ -48,3 +48,6 @@ The albums list always tries the API first, replaces the stored albums in a tran
 and falls back on the database if the call fails, so the app keeps working offline
 once albums have been loaded at least once. Album details are read from the database,
 which also survives process death. The in-memory cache was removed since Room replaces it.
+
+### Favorite feature
+Favorites are stored in their own table, so refreshing albums never removes them.

@@ -51,3 +51,6 @@ Create :core:unittest module in order to work with dispatcher for unit tests
 
 ### Commit 14
 - Add offline mode with Room
+
+### Commit 15
+- Add favorite feature in album details screen.

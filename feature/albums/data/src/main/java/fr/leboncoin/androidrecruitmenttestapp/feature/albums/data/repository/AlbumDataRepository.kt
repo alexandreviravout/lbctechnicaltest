@@ -12,6 +12,8 @@ import fr.leboncoin.androidrecruitmenttestapp.feature.albums.data.local.AlbumLoc
 import fr.leboncoin.androidrecruitmenttestapp.feature.albums.data.mapper.AlbumMapper
 import fr.leboncoin.androidrecruitmenttestapp.feature.albums.domain.model.Album
 import fr.leboncoin.androidrecruitmenttestapp.feature.albums.domain.repository.AlbumRepository
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -53,6 +55,12 @@ class AlbumDataRepository @Inject constructor(
                 Ok(value = mapper.mapToDomain(entity = it))
             } ?: Err(error = NoSuchElementException("Album $id not found"))
         }
+
+    override fun observeFavoriteIds(): Flow<Set<Int>> =
+        localDataSource.observeFavoriteIds().map { it.toSet() }
+
+    override suspend fun toggleFavorite(id: Int): Result<Boolean, Throwable> =
+        runSuspendCatching { localDataSource.toggleFavorite(id = id) }
 
     private suspend fun refreshAlbums(): Result<List<Album>, Throwable> = runSuspendCatching {
         val dtos = remoteDataSource.getAlbums()

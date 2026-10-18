@@ -8,6 +8,8 @@ import fr.leboncoin.androidrecruitmenttestapp.feature.albums.data.local.AlbumLoc
 import fr.leboncoin.androidrecruitmenttestapp.feature.albums.data.local.entity.AlbumEntity
 import fr.leboncoin.androidrecruitmenttestapp.feature.albums.data.mapper.AlbumMapper
 import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Test
@@ -377,6 +379,48 @@ class AlbumDataRepositoryTest {
 
         // WHEN
         val result = target.getAlbumDetails(id = 1)
+
+        // THEN
+        Assert.assertTrue(result.isErr)
+        Assert.assertEquals(databaseError, result.getError())
+    }
+
+    // endregion
+
+    // region favorites
+
+    @Test
+    fun `should observe favorite ids as a set`() = runTest {
+        // GIVEN
+        whenever(localDataSource.observeFavoriteIds()) doReturn flowOf(listOf(1, 3, 3))
+
+        // WHEN
+        val result = target.observeFavoriteIds().first()
+
+        // THEN
+        Assert.assertEquals(setOf(1, 3), result)
+    }
+
+    @Test
+    fun `should return new favorite state when toggle succeeds`() = runTest {
+        // GIVEN
+        whenever(localDataSource.toggleFavorite(id = 1)) doReturn true
+
+        // WHEN
+        val result = target.toggleFavorite(id = 1)
+
+        // THEN
+        Assert.assertEquals(Ok(value = true), result)
+    }
+
+    @Test
+    fun `should return database error when toggle fails`() = runTest {
+        // GIVEN
+        val databaseError = IllegalStateException("Database error")
+        whenever(localDataSource.toggleFavorite(id = 1)) doThrow databaseError
+
+        // WHEN
+        val result = target.toggleFavorite(id = 1)
 
         // THEN
         Assert.assertTrue(result.isErr)

@@ -24,8 +24,13 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil3.compose.AsyncImage
 import com.adevinta.spark.components.buttons.ButtonFilled
+import com.adevinta.spark.components.iconbuttons.toggle.IconToggleButtonGhost
+import com.adevinta.spark.components.iconbuttons.toggle.IconToggleButtonIcons
 import com.adevinta.spark.components.progress.Spinner
 import com.adevinta.spark.components.tags.TagTinted
+import com.adevinta.spark.icons.FavoriteFill
+import com.adevinta.spark.icons.FavoriteOutline
+import com.adevinta.spark.icons.SparkIcons
 import fr.leboncoin.androidrecruitmenttestapp.feature.albums.ui.AlbumViewState
 
 /**
@@ -47,6 +52,7 @@ fun AlbumDetailsScreen(
         is AlbumDetailsUiState.Loading -> AlbumDetailsLoadingView(modifier = modifier)
         is AlbumDetailsUiState.Success -> AlbumDetailsView(
             album = state.album,
+            onFavoriteClick = viewModel::onFavoriteClick,
             modifier = modifier,
         )
 
@@ -94,6 +100,7 @@ internal fun AlbumDetailsErrorView(
 @Composable
 internal fun AlbumDetailsView(
     album: AlbumViewState,
+    onFavoriteClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -115,10 +122,27 @@ internal fun AlbumDetailsView(
             modifier = Modifier.padding(all = 16.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp),
         ) {
-            Text(
-                text = album.title,
-                style = MaterialTheme.typography.headlineSmall,
-            )
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Text(
+                    text = album.title,
+                    style = MaterialTheme.typography.headlineSmall,
+                    modifier = Modifier.weight(1f),
+                )
+
+                IconToggleButtonGhost(
+                    checked = album.isFavorite,
+                    onCheckedChange = { onFavoriteClick() },
+                    icons = IconToggleButtonIcons(
+                        checked = SparkIcons.FavoriteFill,
+                        unchecked = SparkIcons.FavoriteOutline,
+                    ),
+                    contentDescription = if (album.isFavorite) {
+                        "Remove from favorites"
+                    } else {
+                        "Add to favorites"
+                    },
+                )
+            }
 
             Row(
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
